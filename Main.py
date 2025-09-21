@@ -70,7 +70,7 @@ def transcribe_mp3_to_text(directory: str, filename: str):
         return None
 
 
-placedfiledirectory = "C:\Users\Samuel\Phyton Projects\Arquivos"
+placedfiledirectory = "C:\\Users\\Samuel\\Phyton Projects\\Arquivos"
 file = "2025-09-19-17-06-01"
 
 
