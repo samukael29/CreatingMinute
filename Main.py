@@ -2,6 +2,7 @@ from pathlib import Path
 import subprocess
 import os
 import whisper
+from docx import Document
 
 
 def mkv_to_mp3(directory: str, filename: str):
@@ -43,6 +44,7 @@ def transcribe_mp3_to_text(directory: str, filename: str):
     """
     inputfile = os.path.join(directory,  filename + "." + 'mp3')
     outputfile = os.path.join(directory,  filename + "." + 'txt')
+    
 
     
     try:
@@ -56,11 +58,13 @@ def transcribe_mp3_to_text(directory: str, filename: str):
         transcribed_text = result["text"]
 
 
-        # Save the transcription to a text file
-        with open(outputfile, "w", encoding="utf-8") as f:
-            f.write(transcribed_text)
+        # # Save the transcription to a text file
+        # with open(outputfile, "w", encoding="utf-8") as f:
+        #     f.write(transcribed_text)
 
-        print(f"Transcription saved to {outputfile}")
+        # print(f"Transcription saved to {outputfile}")
+        
+        save_transcript_to_docx(transcribed_text,directory,filename)
 
 
         # Extract and return the transcribed text
@@ -70,10 +74,32 @@ def transcribe_mp3_to_text(directory: str, filename: str):
         return None
 
 
+
+def save_transcript_to_docx(transcript_text: str, output_path: str, title: str = None):
+    """
+    Save a Whisper-transcribed text into a DOCX file.
+
+    :param transcript_text: The transcription text returned by Whisper.
+    :param output_path: Path to save the .docx file.
+    :param title: Optional title to add at the top of the document.
+    """
+    doc = Document()
+
+    if title:
+        doc.add_heading(title, level=1)
+
+    # Split transcript into paragraphs (you can adapt splitting logic)
+    for para in transcript_text.splitlines():
+        if para.strip():
+            doc.add_paragraph(para.strip())
+
+    doc.save(output_path+"\\"+title+".docx")
+
+
 placedfiledirectory = "C:\\Users\\Samuel\\Phyton Projects\\Arquivos"
 file = "2025-09-19-17-06-01"
 
 
-mkv_to_mp3(placedfiledirectory,file)
+# mkv_to_mp3(placedfiledirectory,file)
 
 transcribe_mp3_to_text(placedfiledirectory,file)
