@@ -10,7 +10,7 @@ def mkv_to_mp3(directory: str, filename: str):
     É necessário ter o ffmpeg instalado no sistema.
     """
 
-    inputfile = os.path.join(directory,  filename + "." + 'mvk')
+    inputfile = os.path.join(directory,  filename + "." + 'mkv')
     outputfile = os.path.join(directory,  filename + "." + 'mp3')
 
     if os.path.isfile(inputfile):
