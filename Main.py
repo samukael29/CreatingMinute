@@ -4,26 +4,27 @@ import os
 import whisper
 
 
-def mkv_to_mp3(input_file: str, output_file: str):
+def mkv_to_mp3(directory: str, filename: str):
     """
     Extrai o áudio de um arquivo MKV e salva como MP3 usando ffmpeg.
     É necessário ter o ffmpeg instalado no sistema.
     """
+
+    inputfile = os.path.join(directory,  filename + "." + 'mvk')
+    outputfile = os.path.join(directory,  filename + "." + 'mp3')
+
+    if os.path.isfile(inputfile):
+        print(f"The file '{inputfile}' exists.")
+    else:
+        print(f"The file '{inputfile}' does not exist or is not a regular file.")
+
     command = [
         "ffmpeg",
-        "-i", input_file,   # arquivo de entrada
+        "-i", inputfile,   # arquivo de entrada
         "-q:a", "0",        # qualidade máxima de áudio
         "-map", "a",        # seleciona apenas a trilha de áudio
-        output_file
+        outputfile
     ]
-
-    current_directory = os.getcwd()
-    full_file_path = os.path.join(current_directory, input_file)
-
-    if os.path.isfile(full_file_path):
-        print(f"The file '{full_file_path}' exists.")
-    else:
-        print(f"The file '{full_file_path}' does not exist or is not a regular file.")
 
     subprocess.run(command, check=True)
     print(f"Áudio exportado com sucesso para: {output_file}")
@@ -72,10 +73,10 @@ def transcribe_mp3_to_text(mp3_file_path):
         return None
 
 
-input_file = "2025-09-19-17-06-01.mkv"
-output_file = "2025-09-19-17-06-01.mp3"
+placedfiledirectory = "C:\Users\Samuel\Phyton Projects\Arquivos"
+file = "2025-09-19-17-06-01"
 
 
-# mkv_to_mp3(input_file,output_file)
+mkv_to_mp3(placedfiledirectory,file)
 
 transcribe_mp3_to_text(output_file)
