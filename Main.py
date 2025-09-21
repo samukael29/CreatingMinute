@@ -19,7 +19,8 @@ def mkv_to_mp3(input_file: str, output_file: str):
 # Exemplo de uso
 
 
-input_file = "C:\Users\slaa\Videos\2025-09-19 10-29-49\2025-09-19 10-29-49.mkv"
-output_file = "C:\Users\slaa\Videos\2025-09-19 10-29-49\2025-09-19 10-29-49.mp3"
+input_file = "C:\\Users\\slaa\\Videos\\2025-09-19 10-29-49\\2025-09-19-10-29-49.mkv"
+output_file = "C:\\Users\\slaa\\Videos\\2025-09-19 10-29-49\\2025-09-19-10-29-49.mp3"
+
 
 mkv_to_mp3(input_file,output_file)
