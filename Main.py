@@ -27,12 +27,11 @@ def mkv_to_mp3(directory: str, filename: str):
     ]
 
     subprocess.run(command, check=True)
-    print(f"Áudio exportado com sucesso para: {output_file}")
+    print(f"Áudio exportado com sucesso para: {outputfile}")
 
 
 
-
-def transcribe_mp3_to_text(mp3_file_path):
+def transcribe_mp3_to_text(directory: str, filename: str):
     """
     Transcribes an MP3 audio file to text using OpenAI's Whisper model.
 
@@ -42,28 +41,26 @@ def transcribe_mp3_to_text(mp3_file_path):
     Returns:
         str: The transcribed text from the audio file.
     """
+    inputfile = os.path.join(directory,  filename + "." + 'mp3')
+    outputfile = os.path.join(directory,  filename + "." + 'txt')
 
-    current_directory = os.getcwd()
-    full_file_path = os.path.join(current_directory, mp3_file_path)
-
+    
     try:
         # Load the Whisper model (e.g., 'base', 'small', 'medium', 'large')
         # 'base' is a good starting point for general use.
         model = whisper.load_model("base")
 
         # Transcribe the audio file
-        result = model.transcribe(full_file_path)
+        result = model.transcribe(inputfile)
 
         transcribed_text = result["text"]
 
-        # Specify the output file path
-        output_file_path = "transcription.txt"
 
         # Save the transcription to a text file
-        with open(output_file_path, "w", encoding="utf-8") as f:
+        with open(outputfile, "w", encoding="utf-8") as f:
             f.write(transcribed_text)
 
-        print(f"Transcription saved to {output_file_path}")
+        print(f"Transcription saved to {outputfile}")
 
 
         # Extract and return the transcribed text
@@ -79,4 +76,4 @@ file = "2025-09-19-17-06-01"
 
 mkv_to_mp3(placedfiledirectory,file)
 
-transcribe_mp3_to_text(output_file)
+transcribe_mp3_to_text(placedfiledirectory,file)
